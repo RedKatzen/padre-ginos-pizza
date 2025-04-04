@@ -1,0 +1,13 @@
+node_modules/
+/node_modules
+
+# Ignore Mac system files
+.DS_Store
+
+# Ignore Windows system files
+dist/
+.env
+# Ignore build artifacts
+coverage/
+# Ignore IDE specific files
+.vscode/
