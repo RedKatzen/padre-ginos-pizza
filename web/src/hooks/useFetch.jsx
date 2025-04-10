@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useDebugValue, useEffect, useState } from "react";
 
 export const useFetch = (url) => {
   const [data, setData] = useState();
+
+  useDebugValue(data ? `${data.id} : ${data.name}` : "loading...");
 
   useEffect(() => {
     async function fetchData() {
