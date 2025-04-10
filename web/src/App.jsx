@@ -1,11 +1,13 @@
 import { createRoot } from "react-dom/client";
-import Order from "./Order";
+import Order from "./components/Order";
+import PizzaOfTheDay from "./components/PizzaOfTheDay";
 
 const App = () => {
   return (
     <div>
-      <h1>Padre Gino's - Order Now!</h1>
+      <h1 className="logo">Padre Gino's - Order Now!</h1>
       <Order />
+      <PizzaOfTheDay />
     </div>
   );
 };

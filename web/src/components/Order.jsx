@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 import Pizza from "./Pizza";
+import { useFetch } from "../hooks/useFetch";
+
+// feel free to change en-US / USD to your locale
+const intl = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+});
 
 export default function Order() {
   const [pizzaType, setPizzaType] = useState("bbq_ckn");
@@ -7,29 +14,24 @@ export default function Order() {
   const [pizzaTypes, setPizzaTypes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchedData = useFetch("/api/pizzas");
+
   let price;
   let selectedPizza = pizzaType;
 
   if (!loading && pizzaTypes.length > 0) {
     selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
-    price = selectedPizza.sizes[pizzaSize];
+    price = intl.format(
+      selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : "",
+    );
   }
 
   useEffect(() => {
-    try {
-      fetchPizzaTypes();
-    } catch ({ name, message }) {
-      console.log(`Type: ${name}`);
-      console.log(`Message: ${message}`);
+    if (fetchedData) {
+      setPizzaTypes(fetchedData);
+      setLoading(false);
     }
-  }, []);
-
-  async function fetchPizzaTypes() {
-    const res = await fetch("/api/pizzas");
-    const json = await res.json();
-    setPizzaTypes(json);
-    setLoading(false);
-  }
+  }, [fetchedData]);
 
   return (
     <div className="order">
@@ -87,23 +89,23 @@ export default function Order() {
                 <label htmlFor="pizza-l">Large</label>
               </span>
             </div>
+            <button type="submit">Add to Cart</button>
           </div>
-          <button type="submit">Add to Cart</button>
-          {loading ? (
-            <h1>LOADING...</h1>
-          ) : selectedPizza ? (
-            <div className="order-pizza">
-              <Pizza
-                name={selectedPizza.name}
-                description={selectedPizza.description}
-                image={selectedPizza.image}
-              />
-              <p>{price}</p>
-            </div>
-          ) : (
-            <p>Pizza not found</p>
-          )}
         </div>
+        {loading ? (
+          <h1>LOADING...</h1>
+        ) : selectedPizza ? (
+          <div className="order-pizza">
+            <Pizza
+              name={selectedPizza.name}
+              description={selectedPizza.description}
+              image={selectedPizza.image}
+            />
+            <p>{price}</p>
+          </div>
+        ) : (
+          <p>Pizza not found</p>
+        )}
       </form>
     </div>
   );
