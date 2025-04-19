@@ -3,7 +3,7 @@ const intl = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-export default function Cart({ cart, checkout }) {
+export default function Cart({ checkout, cart }) {
   let total = 0;
   cart.forEach((current) => {
     total += current.pizza.sizes[current.size];

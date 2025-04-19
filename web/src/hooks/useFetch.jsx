@@ -6,11 +6,16 @@ export const useFetch = (url) => {
   useDebugValue(data ? `${data.id} : ${data.name}` : "loading...");
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(url);
-      const json = await res.json();
-      setData(json);
-    }
+    const fetchData = async () => {
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error("Type: ", err.type);
+        console.error("Msg: ", err.message);
+      }
+    };
 
     fetchData();
   }, []);

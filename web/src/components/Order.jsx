@@ -28,6 +28,18 @@ export default function Order() {
     );
   }
 
+  const checkout = async () => {
+    setLoading(true);
+
+    await fetch("/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cart }),
+    });
+  };
+
   useEffect(() => {
     if (fetchedData) {
       setPizzaTypes(fetchedData);
@@ -119,7 +131,7 @@ export default function Order() {
           )}
         </form>
       </div>
-      {loading ? <h2>LOADING...</h2> : <Cart cart={cart} />}
+      {loading ? <h2>LOADING...</h2> : <Cart checkout={checkout} cart={cart} />}
     </div>
   );
 }
