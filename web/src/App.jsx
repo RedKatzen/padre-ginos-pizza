@@ -1,14 +1,21 @@
 import { createRoot } from "react-dom/client";
 import Order from "./components/Order";
 import PizzaOfTheDay from "./components/PizzaOfTheDay";
+import Header from "./components/Header";
+import { CartContext } from "./context/context";
+import { useState } from "react";
 
 const App = () => {
+  const cartHook = useState([]);
+
   return (
-    <div>
-      <h1 className="logo">Padre Gino's - Order Now!</h1>
-      <Order />
-      <PizzaOfTheDay />
-    </div>
+    <CartContext.Provider value={cartHook}>
+      <div>
+        <Header />
+        <Order />
+        <PizzaOfTheDay />
+      </div>
+    </CartContext.Provider>
   );
 };
 

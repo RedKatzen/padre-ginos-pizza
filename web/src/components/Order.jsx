@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Pizza from "./Pizza";
 import Cart from "./Cart";
 import { useFetch } from "../hooks/useFetch";
+import { CartContext } from "../context/context";
 
 // feel free to change en-US / USD to your locale
 const intl = new Intl.NumberFormat("pt-BR", {
@@ -13,7 +14,7 @@ export default function Order() {
   const [pizzaType, setPizzaType] = useState("bbq_ckn");
   const [pizzaSize, setPizzaSize] = useState("M");
   const [pizzaTypes, setPizzaTypes] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useContext(CartContext);
   const [loading, setLoading] = useState(true);
 
   const fetchedData = useFetch("/api/pizzas");
@@ -116,7 +117,7 @@ export default function Order() {
             </div>
           </div>
           {loading ? (
-            <h1>LOADING...</h1>
+            <div></div>
           ) : selectedPizza ? (
             <div className="order-pizza">
               <Pizza
