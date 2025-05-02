@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import Pizza from "./Pizza";
-import Cart from "./Cart";
+import Pizza from "../components/Pizza";
+import Cart from "../components/Cart";
 import { useFetch } from "../hooks/useFetch";
 import { CartContext } from "../context/context";
 
@@ -9,6 +9,9 @@ const intl = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
+
+// order.lazy.jsx: TanStack will lazy load this route
+// when the user navigates to /order
 
 export default function Order() {
   const [pizzaType, setPizzaType] = useState("bbq_ckn");
@@ -34,9 +37,7 @@ export default function Order() {
 
     await fetch("/api/order", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cart }),
     });
   };
