@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import globals from "globals";
 import prettier from "eslint-config-prettier";
 import reactPlugin from "eslint-plugin-react";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 //  is a VS Code / TypeScript trick to be able
 // to do auto-completions on the config object
@@ -10,22 +11,15 @@ export default [
   js.configs.recommended,
   {
     ...reactPlugin.configs.flat.recommended,
-    settings: {
-      react: {
-        version: "detect",
-      },
-    },
+    settings: { react: { version: "detect" } },
   },
   reactPlugin.configs.flat["jsx-runtime"],
+  ...pluginQuery.configs["flat/recommended"],
   {
     files: ["**/*.js", "**/*.jsx"],
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
+      parserOptions: { ecmaFeatures: { jsx: true } },
     },
     rules: {
       "no-unused-vars": "off",
