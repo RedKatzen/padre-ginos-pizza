@@ -1,7 +1,4 @@
-const intl = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+import currencyConverter from "../util/CurrencyConverter";
 
 export default function Cart({ checkout, cart }) {
   let total = 0;
@@ -21,7 +18,7 @@ export default function Cart({ checkout, cart }) {
           </li>
         ))}
       </ul>
-      <p>Total: {intl.format(total)}</p>
+      <p>Total: {currencyConverter(total)}</p>
       <button onClick={checkout}>Checkout</button>
     </div>
   );

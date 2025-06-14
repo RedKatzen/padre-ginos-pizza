@@ -1,9 +1,5 @@
 import { useFetch } from "../hooks/useFetch";
-
-const intl = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
+import currencyConverter from "../util/CurrencyConverter";
 
 const PizzaOfTheDay = () => {
   const pizzaOfTheDay = useFetch("/api/pizza-of-the-day");
@@ -20,7 +16,7 @@ const PizzaOfTheDay = () => {
           <h3>{pizzaOfTheDay.name}</h3>
           <p>{pizzaOfTheDay.description}</p>
           <p className="pizza-of-the-day-price">
-            From: {intl.format(pizzaOfTheDay.sizes.S)}
+            From: {currencyConverter(pizzaOfTheDay.sizes.S)}
           </p>
         </div>
         <img

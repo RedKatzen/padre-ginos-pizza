@@ -4,16 +4,11 @@ import Cart from "../components/Cart";
 import { useFetch } from "../hooks/useFetch";
 import { CartContext } from "../context/context";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import currencyConverter from "../util/CurrencyConverter";
 
 // This is a lazy loaded route. It will only be loaded when the user navigates to /order
 // This is a good way to split your code and only load the components you need
 export const Route = createLazyFileRoute("/order")({ component: Order });
-
-// feel free to change en-US / USD to your locale
-const intl = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-});
 
 // order.lazy.jsx: TanStack will lazy load this route
 // when the user navigates to /order
@@ -32,7 +27,7 @@ function Order() {
 
   if (!loading && pizzaTypes.length > 0) {
     selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id);
-    price = intl.format(
+    price = currencyConverter(
       selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : "",
     );
   }
