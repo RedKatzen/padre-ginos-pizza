@@ -4,7 +4,7 @@
   "description": "A pizza menu webpage following the instructor, from vanilla React to advanced React and other tools!",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
