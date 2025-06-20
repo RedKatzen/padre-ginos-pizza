@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Component } from "react";
 
+// catch errors from it children, not error from itself
+// cannot use hooks with class components (hack: put hook in a function component, and pass to class component as a prop)
 class ErrorBoundary extends Component {
   state = { hasError: false };
   static getDerivedStateFromError() {
