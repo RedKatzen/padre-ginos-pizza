@@ -1,7 +1,7 @@
 import { useDebugValue, useEffect, useState } from "react";
 
 export const useFetch = (url) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
 
   useDebugValue(data ? `${data.id} : ${data.name}` : "loading...");
 
