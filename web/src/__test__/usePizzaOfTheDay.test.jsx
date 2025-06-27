@@ -26,6 +26,7 @@ test("gives null when first called", async () => {
 test("to call the API and give back the pizza of the day", async () => {
   fetch.mockResponseOnce(JSON.stringify(testPizza));
   const { result } = renderHook(() => useFetch("/api/pizza-of-the-day"));
+  // waitFor: wait for the result to change
   await waitFor(() => {
     expect(result.current).toEqual(testPizza);
   });
