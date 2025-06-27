@@ -1,6 +1,8 @@
-import { render } from "@testing-library/react";
-import { expect, test } from "vitest";
+import { cleanup, render } from "@testing-library/react";
+import { afterEach, expect, test } from "vitest";
 import Pizza from "../components/Pizza";
+
+afterEach(cleanup);
 
 test("alt test renders on Pizza image", async () => {
   const name = "My favourite Pizza";
@@ -13,4 +15,13 @@ test("alt test renders on Pizza image", async () => {
   const img = screen.getByRole("img");
   expect(img.src).toBe(src);
   expect(img.alt).toBe(name);
+});
+
+test("to have default image if none is provided", async () => {
+  const screen = render(
+    <Pizza name={"something else"} description="super cool" />,
+  );
+
+  const img = screen.getByRole("img");
+  expect(img.src).not.toBe("");
 });
